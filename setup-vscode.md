@@ -63,13 +63,14 @@ Alternativa sem baixar o Chromium, não testada aqui: apontar a extensão para o
 | Atalho | O que faz | Onde vale |
 | --- | --- | --- |
 | `Ctrl+Alt+V` | Abre o preview ao lado | Editor de markdown |
-| `Ctrl+Shift+E` | Exporta o arquivo (Export to File) | Preview ativo |
+| `Ctrl+Shift+E` | Exporta o arquivo (Export to File) | Editor de markdown |
+| `Ctrl+Shift+E` | Abre o `.md` no lugar do preview e exporta | Preview |
 | `Ctrl+E` | Abre o Explorer, que saiu do `Ctrl+Shift+E` | Qualquer lugar |
 | `Alt+V` | Ditado no editor, que saiu do `Ctrl+Alt+V` | Editor |
 
 Os padrões do VS Code continuam valendo: `Ctrl+Shift+V` abre o preview no lugar do editor e `Ctrl+K V` abre ao lado.
 
-`%APPDATA%\Code\User\keybindings.json` (Ctrl+Shift+P, "Preferences: Open Keyboard Shortcuts (JSON)"). Os 7 itens abaixo vão juntos: 3 são os atalhos de markdown e 4 tiram ou mudam os padrões que ocupavam essas teclas.
+`%APPDATA%\Code\User\keybindings.json` (Ctrl+Shift+P, "Preferences: Open Keyboard Shortcuts (JSON)"). Os 8 itens abaixo vão juntos: 3 são os atalhos de markdown e 5 tiram ou mudam os padrões que ocupavam essas teclas.
 
 ```json
 {
@@ -90,6 +91,17 @@ Os padrões do VS Code continuam valendo: `Ctrl+Shift+V` abre o preview no lugar
 {
     "key": "ctrl+shift+e",
     "command": "markdownExtended.export",
+    "when": "editorTextFocus && !notebookEditorFocused && editorLangId =~ /^(markdown|prompt|instructions|chatagent|skill)$/"
+},
+{
+    "key": "ctrl+shift+e",
+    "command": "runCommands",
+    "args": {
+        "commands": [
+            "markdown.showSource",
+            "markdownExtended.export"
+        ]
+    },
     "when": "!terminalFocus && activeCustomEditorId == 'vscode.markdown.preview.editor'"
 },
 {
@@ -109,8 +121,9 @@ Os padrões do VS Code continuam valendo: `Ctrl+Shift+V` abre o preview no lugar
 ```
 
 - O `Ctrl+E` deixa de abrir o Quick Open, que continua no `Ctrl+P`.
-- No editor de texto, o `Ctrl+Shift+E` não faz nada. Para exportar de lá, use Ctrl+Shift+P, "Markdown: Export to File".
-- No preview, o Export to File procura o `.md` entre os editores de texto visíveis. Se o `.md` não estiver visível, a resposta é "No document found."
+- No editor, o `Ctrl+Shift+E` exige o cursor no texto do `.md`. O painel Output e as células de notebook ficam de fora.
+- No preview, o `Ctrl+Shift+E` usa o `runCommands`, que já vem no VS Code: abre o `.md` (`markdown.showSource`) e depois exporta. O preview dá lugar ao `.md`.
+- O atalho do preview abre o `.md` antes porque o Export to File, chamado direto do preview, não acha o arquivo. Sem o `.md` como editor ativo, a extensão pega o primeiro editor de texto visível. Se for o painel Output, o erro é "please save file before export: extension-output-..."; se não houver nenhum, é "No document found."
 - As extensões de markdown instaladas não trazem atalhos próprios.
 
 ### 5. Segurança do preview (Markdown Interactive Checkbox)
@@ -123,6 +136,6 @@ Para o checkbox do preview funcionar no clique, o preview precisa aceitar conte�
 
 ## Exportar para PDF
 
-`Ctrl+Shift+E` no preview (Export to File, PDF). Para um `.md` fora do workspace aberto, o PDF sai ao lado dele, com o mesmo nome. Para um `.md` dentro do workspace, sai em `<workspace>\out\<mesma subpasta>`.
+`Ctrl+Shift+E` no `.md` ou no preview (Export to File, PDF). Para um `.md` fora do workspace aberto, o PDF sai ao lado dele, com o mesmo nome. Para um `.md` dentro do workspace, sai em `<workspace>\out\<mesma subpasta>`.
 
 Os checkboxes desse PDF saem só desenhados, sem clique. A abordagem para torná-los clicáveis está em `pdf-checkboxes.md`, nesta pasta.
