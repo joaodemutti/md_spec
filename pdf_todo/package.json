@@ -1,0 +1,11 @@
+{
+  "name": "pdf_todo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Poe checkboxes clicaveis (AcroForm) no PDF exportado pelo Markdown Extended",
+  "main": "checkboxes.js",
+  "dependencies": {
+    "pdf-lib": "1.17.1",
+    "pdfjs-dist": "3.11.174"
+  }
+}
