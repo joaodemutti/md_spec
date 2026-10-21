@@ -1,0 +1,60 @@
+{
+  "attribution": {
+    "pr": ""
+  },
+  "permissions": {
+    "defaultMode": "auto"
+  },
+  "model": "opus[1m]",
+  "effortLevel": "xhigh",
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "low"
+    }
+  },
+  "autoUpdatesChannel": "latest",
+  "tui": "fullscreen",
+  "theme": "dark",
+  "skipWorkflowUsageWarning": true,
+  "remoteControlAtStartup": false,
+  "inputNeededNotifEnabled": false,
+  "agentPushNotifEnabled": true,
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash|PowerShell|Write|Edit|MultiEdit|NotebookEdit|mcp__.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ~/.claude/hooks/block-ai-signature.js",
+            "shell": "bash",
+            "timeout": 10,
+            "statusMessage": "Checking outgoing content for AI signature or emoji"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ~/.claude/hooks/block-git-commit-push.js",
+            "shell": "bash",
+            "statusMessage": "Verifying git commit/push approval gate"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash|PowerShell",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ~/.claude/hooks/block-destructive-merge.js",
+            "shell": "bash",
+            "statusMessage": "Checking for destructive merge resolution"
+          }
+        ]
+      }
+    ]
+  }
+}

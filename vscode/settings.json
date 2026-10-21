@@ -1,0 +1,49 @@
+{
+    // Perfis de terminal: cada um abre ja rodando o seu comando e grava esse comando no
+    // historico do PSReadLine, para a seta para cima repeti-lo depois de um Ctrl+C.
+    // Troque os <...> pelos do projeto (container do back, pasta do front, arquivo de log).
+    "terminal.integrated.profiles.windows": {
+        "BACK": {
+            "source": "PowerShell",
+            "color": "terminal.ansiCyan",
+            "overrideName": true,
+            "args": ["-NoExit", "-Command", "Add-Content (Get-PSReadLineOption).HistorySavePath 'docker exec -it <container-do-back> bash'; docker exec -it <container-do-back> bash"]
+        },
+        "FRONT": {
+            "source": "PowerShell",
+            "icon": "browser",
+            "color": "terminal.ansiBlue",
+            "overrideName": true,
+            "args": ["-NoExit", "-Command", "Set-Location <pasta-do-front>; Add-Content (Get-PSReadLineOption).HistorySavePath 'yarn start'; yarn start"]
+        },
+        "LOG": {
+            "source": "PowerShell",
+            "icon": "lucide-file-text",
+            "color": "terminal.ansiGreen",
+            "overrideName": true,
+            "args": ["-NoExit", "-Command", "Set-Location <pasta-do-back>; Add-Content (Get-PSReadLineOption).HistorySavePath 'Get-Content -Tail 50 -Wait <arquivo-de-log>'; Get-Content -Tail 50 -Wait <arquivo-de-log>"]
+        },
+        "OUTPUT": {
+            "source": "PowerShell",
+            "icon": "output",
+            "color": "terminal.ansiYellow",
+            "overrideName": true,
+            "args": ["-NoExit", "-Command", "Add-Content (Get-PSReadLineOption).HistorySavePath 'docker logs -f --tail 50 <container-do-back>'; docker logs -f --tail 50 <container-do-back>"]
+        }
+    },
+    "files.autoSave": "afterDelay",
+    "claudeCode.preferredLocation": "panel",
+    "git.showActionButton": {
+        "commit": true,
+        "publish": true,
+        "sync": false
+    },
+    "terminal.integrated.initialHint": false,
+    "workbench.preferredLightColorTheme": "Visual Studio Light",
+    "workbench.preferredHighContrastColorTheme": "Monokai Dimmed",
+    "markdown-preview-github-styles.colorTheme": "light",
+    // Contorno: com o EditContext ligado, o painel de emoji/simbolos do Windows (Win+. e as abas de
+    // emoji do Win+V) nao insere nada no editor desde a 1.139 (microsoft/vscode#338128).
+    // Tirar quando a correcao chegar.
+    "editor.editContext": false
+}

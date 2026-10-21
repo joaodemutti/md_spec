@@ -1,0 +1,104 @@
+// Place your key bindings in this file to override the defaults
+[
+    {
+        "key": "ctrl+alt+o",
+        "command": "-workbench.action.remote.showMenu"
+    },
+    {
+        "key": "ctrl+shift+t",
+        "command": "workbench.action.copyEditorToNewWindow",
+        "when": "activeEditor && !isMergeEditor"
+    },
+    {
+        "key": "ctrl+shift+t",
+        "command": "mergeEditor.toggleBetweenInputs",
+        "when": "isMergeEditor"
+    },
+    {
+        "key": "ctrl+shift+t",
+        "command": "-mergeEditor.toggleBetweenInputs",
+        "when": "isMergeEditor"
+    },
+    {
+        "key": "alt+v",
+        "command": "workbench.action.editorDictation.start",
+        "when": "editorDictation.inProgress && hasSpeechProvider && !editorReadonly || hasSpeechProvider && !editorReadonly && !speechToTextInProgress || chatIsEnabled && chatSpeechToTextConfigured && editorDictation.inProgress && !editorReadonly || chatIsEnabled && chatSpeechToTextConfigured && !editorReadonly && !speechToTextInProgress"
+    },
+    {
+        "key": "ctrl+alt+v",
+        "command": "-workbench.action.editorDictation.start",
+        "when": "editorDictation.inProgress && hasSpeechProvider && !editorReadonly || hasSpeechProvider && !editorReadonly && !speechToTextInProgress || chatIsEnabled && chatSpeechToTextConfigured && editorDictation.inProgress && !editorReadonly || chatIsEnabled && chatSpeechToTextConfigured && !editorReadonly && !speechToTextInProgress"
+    },
+    {
+        "key": "ctrl+alt+v",
+        "command": "markdown.showPreviewToSide",
+        "when": "editorFocus && !notebookEditorFocused && editorLangId =~ /^(markdown|prompt|instructions|chatagent|skill)$/"
+    },
+    {
+        "key": "ctrl+alt+k",
+        "command": "-claude-code.insertAtMentioned",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+k ctrl+s",
+        "command": "workbench.action.openGlobalKeybindings"
+    },
+    {
+        "key": "ctrl+k ctrl+s",
+        "command": "-workbench.action.openGlobalKeybindings"
+    },
+    {
+        "key": "ctrl+alt+k",
+        "command": "workbench.action.openGlobalKeybindings"
+    },
+    {
+        "key": "ctrl+alt+t",
+        "command": "workbench.action.moveEditorToNewWindow"
+    },
+    {
+        "key": "ctrl+shift+t ctrl+shift+t",
+        "command": "workbench.action.copyEditorToNewWindow",
+        "when": "activeEditor && isMergeEditor"
+    },
+    {
+        "key": "ctrl+shift+e",
+        "command": "markdownExtended.export",
+        "when": "editorTextFocus && !notebookEditorFocused && editorLangId =~ /^(markdown|prompt|instructions|chatagent|skill)$/"
+    },
+    {
+        "key": "ctrl+shift+e",
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                "markdown.showSource",
+                "markdownExtended.export"
+            ]
+        },
+        "when": "!terminalFocus && activeCustomEditorId == 'vscode.markdown.preview.editor'"
+    },
+    {
+        "key": "ctrl+e",
+        "command": "-workbench.action.quickOpen"
+    },
+    {
+        "key": "ctrl+e",
+        "command": "workbench.view.explorer",
+        "when": "viewContainer.workbench.view.explorer.enabled"
+    },
+    {
+        "key": "ctrl+shift+e",
+        "command": "-workbench.view.explorer",
+        "when": "viewContainer.workbench.view.explorer.enabled"
+    },
+    {
+        "key": "ctrl+shift+v",
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                "markdown.togglePreview",
+                "workbench.action.focusActiveEditorGroup"
+            ]
+        },
+        "when": "!terminalFocus && activeCustomEditorId == 'vscode.markdown.preview.editor' || editorFocus && !notebookEditorFocused && !terminalFocus && resourceLangId =~ /^(markdown|prompt|instructions|chatagent|skill)$/"
+    }
+]
